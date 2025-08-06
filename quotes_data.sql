@@ -27,8 +27,7 @@ SET row_security = off;
 -- Name: application_tracking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.application_tracking_id_seq', 1, false);
-
+SELECT pg_catalog.setval('public.quotes_id_seq', 243, true);
 
 --
 -- PostgreSQL database dump complete
