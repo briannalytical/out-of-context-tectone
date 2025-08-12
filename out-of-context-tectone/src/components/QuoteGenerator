@@ -94,12 +94,6 @@ const generateNewQuote = () => {
     border-bottom: 0;
   }
   
-  .quote-text {
-    font-size: 1.5rem;
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
-  
   #generate-btn {
     background-color: #3498db;
     color: white;
