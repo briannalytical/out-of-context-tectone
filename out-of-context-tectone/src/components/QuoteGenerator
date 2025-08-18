@@ -11,7 +11,7 @@
           <p class="quote-text">"{{ quote.text }}"</p>
           <p class="quote-author">- Tectone</p>
         </div>
-        <button @click="getNewQuote" class="btn-generate">Generate</button>
+        <button @click="fetchQuote" class="btn-generate">Generate</button>
       </div>
     </main>
   </div>
