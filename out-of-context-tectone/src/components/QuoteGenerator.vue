@@ -17,7 +17,12 @@
   </div>
  </template>
 
- <script setup>
+<script setup>
+import { ref } from 'vue'
+import { supabase } from '../supabaseClient' // update this path to match your actual file
+
+const quote = ref({ text: '' })
+
 const fetchQuote = async () => {
   const { data, error } = await supabase
     .from('quotes')
@@ -28,14 +33,13 @@ const fetchQuote = async () => {
   if (error) {
     console.error('Error:', error)
   } else {
-    quote.value = data?.[0]?.text || 'No more. :('
+    quote.value = data?.[0] || { text: 'No more. :(' }
   }
 }
-onMounted(fetchQuote)
-  </script>
+</script>
 
 <style scoped>
-  
+
   .page-container {
     font-family: sans-serif;
     background-color: #f4f4f9;
@@ -48,22 +52,22 @@ onMounted(fetchQuote)
     padding: 2rem;
     box-sizing: border-box;
   }
-  
+
   header {
     text-align: center;
     margin-bottom: 2rem;
   }
-  
+
   header h1 {
     font-size: 2.5rem;
     color: #2c3e50;
   }
-  
+
   .header-icon {
     font-size: 3rem;
     margin-top: 1rem;
   }
-  
+
   .quote-container {
     width: 100%;
     max-width: 600px;
@@ -71,7 +75,7 @@ onMounted(fetchQuote)
     flex-direction: column;
     align-items: center;
   }
-  
+
   .speech-bubble {
     background: #ffffff;
     border-radius: 15px;
@@ -81,7 +85,7 @@ onMounted(fetchQuote)
     margin-bottom: 3rem;
     text-align: center;
   }
-  
+
   .speech-bubble::after {
     content: '';
     position: absolute;
@@ -100,7 +104,7 @@ onMounted(fetchQuote)
   font-style: italic;
   margin-bottom: 1rem;
   }
-  
+
   #generate-btn {
     background-color: #3498db;
     color: white;
@@ -111,9 +115,9 @@ onMounted(fetchQuote)
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
+
   #generate-btn:hover {
     background-color: #2980b9;
   }
-  
+
   </style>

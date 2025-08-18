@@ -5,7 +5,8 @@
 <script>
 import QuoteGenerator from '/Users/breembair/Desktop/Code/out-of-context-tectone/out-of-context-tectone/src/components/QuoteGenerator'
 import { supabase } from '@/supabaseClient'
-supabase.from('your_table_name').select('*').then(console.log)
+supabase.from('out_of_context_tectone').select('*').then(console.log)
+
 
 export default {
   name: 'App',
