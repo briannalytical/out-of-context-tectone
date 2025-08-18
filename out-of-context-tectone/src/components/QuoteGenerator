@@ -17,21 +17,21 @@
   </div>
  </template>
 
-<script setup>
-import { ref } from 'vue';
-
-const quote = ref({
-  text: "Jesus Christ, bro.",
-});
-
-const generateNewQuote = () => {
-  console.log("New quote generated!");
-
-  quote.value = {
+ <script setup>
+  import { ref } from 'vue';
+  
+  const quote = ref({
     text: "Jesus Christ, bro.",
+  });
+  
+  const generateNewQuote = () => {
+    console.log("New quote generated!");
+  
+    quote.value = {
+      text: "Jesus Christ, bro.",
+    };
   };
-};
-</script>
+  </script>
 
 <style scoped>
   
@@ -92,6 +92,12 @@ const generateNewQuote = () => {
     border: 20px solid transparent;
     border-top-color: #ffffff;
     border-bottom: 0;
+  }
+
+  .quote-text {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 1rem;
   }
   
   #generate-btn {
