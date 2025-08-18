@@ -31,6 +31,7 @@ const fetchQuote = async () => {
     quote.value = data?.[0]?.text || 'No more. :('
   }
 }
+onMounted(fetchQuote)
   </script>
 
 <style scoped>
