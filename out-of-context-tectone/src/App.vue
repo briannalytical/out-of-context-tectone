@@ -1,7 +1,3 @@
-
-
-supabase.from('your_table_name').select('*').then(console.log)
-
 <template>
   <QuoteGenerator />
 </template>
