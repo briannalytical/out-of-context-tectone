@@ -18,19 +18,19 @@
  </template>
 
  <script setup>
-  import { ref } from 'vue';
-  
-  const quote = ref({
-    text: "Jesus Christ, bro.",
-  });
-  
-  const generateNewQuote = () => {
-    console.log("New quote generated!");
-  
-    quote.value = {
-      text: "Jesus Christ, bro.",
-    };
-  };
+const fetchQuote = async () => {
+  const { data, error } = await supabase
+    .from('quotes')
+    .select('text')
+    .order('RANDOM()', { ascending: true })
+    .limit(1)
+
+  if (error) {
+    console.error('Error:', error)
+  } else {
+    quote.value = data?.[0]?.text || 'No more. :('
+  }
+}
   </script>
 
 <style scoped>
