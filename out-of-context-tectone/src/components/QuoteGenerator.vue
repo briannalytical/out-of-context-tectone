@@ -19,16 +19,17 @@
 
 <script setup>
 import { ref } from 'vue'
-import { supabase } from '../supabaseClient' // update this path to match your actual file
+import { supabase } from '../supabaseClient'
 
 const quote = ref({ text: '' })
 
 const fetchQuote = async () => {
-  const { data, error } = await supabase
-    .from('quotes')
-    .select('text')
-    .order('RANDOM()', { ascending: true })
-    .limit(1)
+const { data, error } = await supabase
+  .from('quotes')
+  .select('text, id') // You'll need the id to mark it as used
+  .eq('is_used', false) // Only get unused quotes
+  .order('RANDOM()', { ascending: true })
+  .limit(1)
 
   if (error) {
     console.error('Error:', error)
