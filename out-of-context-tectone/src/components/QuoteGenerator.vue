@@ -1,124 +1,252 @@
 <template>
   <div class="page-container">
     <header class="header">
-      <img class="header-icon" src="/Users/breembair/Desktop/Code/out-of-context-tectone/out-of-context-tectone/src/assets/tectone-image.jpg">
-      <h1 class="title">Tectcone Out Of Context</h1>
+      <img class="logo-icon" src="/tectone_logo.jpg" alt="Tectone Logo">
+      <h1 class="title">Tectone Out Of Context</h1>
     </header>
-
-    <main>
-      <div class="quote-container">
-        <div class="speech-bubble">
-          <p class="quote-text">"{{ quote.text }}"</p>
-          <p class="quote-author">- Tectone</p>
-        </div>
-        <button @click="fetchQuote" class="btn-generate">Generate</button>
+    
+    <div class="quote-container">
+      <div class="thought-bubble">
+        <img class="bubble-icon" src="/tectone_image.jpg" alt="Tectone">
+        <p class="quote-text">"{{ currentQuote }}"</p>
+        <p class="quote-author">- Tectone</p>
       </div>
-    </main>
+      <button @click="fetchQuote" class="btn-generate" :disabled="loading">
+        {{ loading ? 'Loading...' : 'Generate' }}
+      </button>
+    </div>
   </div>
- </template>
+</template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { supabase } from '../supabaseClient'
 
-const quote = ref({ text: '' })
+const currentQuote = ref('BIIIIIIG 2025!')
+const loading = ref(false)
+
+const adjustFontSize = async () => {
+  await nextTick()
+  const quoteElement = document.querySelector('.quote-text')
+  if (!quoteElement) return
+  
+  const quoteLength = currentQuote.value.length
+  let fontSize
+  
+  if (quoteLength < 50) {
+    fontSize = '1.1rem'
+  } else if (quoteLength < 100) {
+    fontSize = '1rem'
+  } else if (quoteLength < 150) {
+    fontSize = '0.9rem'
+  } else if (quoteLength < 200) {
+    fontSize = '0.8rem'
+  } else {
+    fontSize = '0.75rem'
+  }
+  
+  quoteElement.style.fontSize = fontSize
+}
 
 const fetchQuote = async () => {
-const { data, error } = await supabase
-  .from('quotes')
-  .select('text, id') // You'll need the id to mark it as used
-  .eq('is_used', false) // Only get unused quotes
-  .order('RANDOM()', { ascending: true })
-  .limit(1)
-
-  if (error) {
-    console.error('Error:', error)
-  } else {
-    quote.value = data?.[0] || { text: 'No more. :(' }
+  try {
+    loading.value = true
+    
+    const { data: quotes, error } = await supabase
+      .from('quotes')
+      .select('quote_text')
+    
+    if (error) {
+      console.error('Error:', error)
+      currentQuote.value = 'Error loading quotes'
+      return
+    }
+    
+    if (!quotes || quotes.length === 0) {
+      currentQuote.value = 'No quotes found in database'
+      return
+    }
+    
+    const randomIndex = Math.floor(Math.random() * quotes.length)
+    const selectedQuote = quotes[randomIndex]
+    
+    currentQuote.value = selectedQuote.quote_text
+    await adjustFontSize()
+    
+  } catch (err) {
+    console.error('Unexpected error:', err)
+    currentQuote.value = 'Something went wrong!'
+  } finally {
+    loading.value = false
   }
 }
 </script>
 
 <style scoped>
+.page-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
 
-  .page-container {
-    font-family: sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
-    box-sizing: border-box;
-  }
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
 
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
+.logo-icon {
+  width: 100px;
+  height: auto;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
 
-  header h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-  }
+.title {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-weight: bold;
+}
 
-  .header-icon {
-    font-size: 3rem;
-    margin-top: 1rem;
-  }
+.quote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
 
-  .quote-container {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.thought-bubble {
+  background: white;
+  border-radius: 30px;
+  padding: 1.5rem;
+  padding-top: 4.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: relative;
+  text-align: center;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 350px;
+}
 
-  .speech-bubble {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 2rem;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    margin-bottom: 3rem;
-    text-align: center;
-  }
+.thought-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 40px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
 
-  .speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-top-color: #ffffff;
-    border-bottom: 0;
-  }
+.thought-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -25px;
+  left: 25px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
 
-  .quote-text {
-  font-size: 1.5rem;
+.bubble-icon {
+  position: absolute !important;
+  top: 0.75rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e8e8e8;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.quote-text {
+  font-size: 1.1rem;
   font-style: italic;
-  margin-bottom: 1rem;
-  }
+  color: #2c3e50;
+  line-height: 1.4;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  padding: 0 0.75rem;
+}
 
-  #generate-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.quote-author {
+  color: #7f8c8d;
+  font-weight: bold;
+  font-size: 0.85rem !important;
+  text-align: right;
+  margin: 0;
+  margin-right: 0.75rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+}
 
-  #generate-btn:hover {
-    background-color: #2980b9;
-  }
+.btn-generate {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+  font-weight: bold;
+}
 
-  </style>
+.btn-generate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+.btn-generate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .logo-icon {
+    width: 100px;
+  }
+  
+  .thought-bubble {
+    padding: 1.5rem;
+    padding-top: 5rem;
+    height: 200px;
+    max-width: 350px;
+  }
+  
+  .bubble-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+</style>

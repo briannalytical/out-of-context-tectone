@@ -1,9 +1,11 @@
 <template>
-  <QuoteGenerator />
+  <div id="app">
+    <QuoteGenerator />
+  </div>
 </template>
 
 <script>
-import QuoteGenerator from '/Users/breembair/Desktop/Code/out-of-context-tectone/out-of-context-tectone/src/components/QuoteGenerator'
+import QuoteGenerator from './components/QuoteGenerator.vue'
 import { supabase } from '@/supabaseClient'
 supabase.from('out_of_context_tectone').select('*').then(console.log)
 
