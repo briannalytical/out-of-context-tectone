@@ -54,9 +54,11 @@ const fetchQuote = async () => {
   try {
     loading.value = true
 
+    // unused quotes
     const { data: quotes, error } = await supabase
       .from('quotes')
-      .select('quote_text')
+      .select('id, quote_text')
+      .eq('is_used', false)
 
     if (error) {
       console.error('Error:', error)
@@ -65,12 +67,22 @@ const fetchQuote = async () => {
     }
 
     if (!quotes || quotes.length === 0) {
-      currentQuote.value = 'No quotes found in database'
+      currentQuote.value = 'No more quotes available! All quotes have been used.'
       return
     }
 
     const randomIndex = Math.floor(Math.random() * quotes.length)
     const selectedQuote = quotes[randomIndex]
+
+    // Mark the quote as used
+    const { error: updateError } = await supabase
+      .from('quotes')
+      .update({ is_used: true })
+      .eq('id', selectedQuote.id)
+
+    if (updateError) {
+      console.error('Error marking quote as used:', updateError)
+    }
 
     currentQuote.value = selectedQuote.quote_text
     await adjustFontSize()
