@@ -4,11 +4,13 @@
       <img class="logo-icon" src="/tectone_logo.jpg" alt="Tectone Logo">
       <h1 class="title">Tectone Out Of Context</h1>
     </header>
-    
+
     <div class="quote-container">
       <div class="thought-bubble">
+        <span class="quote-mark quote-mark-left">"</span>
+        <span class="quote-mark quote-mark-right">"</span>
         <img class="bubble-icon" src="/tectone_image.jpg" alt="Tectone">
-        <p class="quote-text">"{{ currentQuote }}"</p>
+        <p class="quote-text">{{ currentQuote }}</p>
         <p class="quote-author">- Tectone</p>
       </div>
       <button @click="fetchQuote" class="btn-generate" :disabled="loading">
@@ -29,10 +31,10 @@ const adjustFontSize = async () => {
   await nextTick()
   const quoteElement = document.querySelector('.quote-text')
   if (!quoteElement) return
-  
+
   const quoteLength = currentQuote.value.length
   let fontSize
-  
+
   if (quoteLength < 50) {
     fontSize = '1.1rem'
   } else if (quoteLength < 100) {
@@ -44,35 +46,35 @@ const adjustFontSize = async () => {
   } else {
     fontSize = '0.75rem'
   }
-  
+
   quoteElement.style.fontSize = fontSize
 }
 
 const fetchQuote = async () => {
   try {
     loading.value = true
-    
+
     const { data: quotes, error } = await supabase
       .from('quotes')
       .select('quote_text')
-    
+
     if (error) {
       console.error('Error:', error)
       currentQuote.value = 'Error loading quotes'
       return
     }
-    
+
     if (!quotes || quotes.length === 0) {
       currentQuote.value = 'No quotes found in database'
       return
     }
-    
+
     const randomIndex = Math.floor(Math.random() * quotes.length)
     const selectedQuote = quotes[randomIndex]
-    
+
     currentQuote.value = selectedQuote.quote_text
     await adjustFontSize()
-    
+
   } catch (err) {
     console.error('Unexpected error:', err)
     currentQuote.value = 'Something went wrong!'
@@ -145,43 +147,62 @@ const fetchQuote = async () => {
 .thought-bubble::before {
   content: '';
   position: absolute;
-  bottom: -15px;
-  left: 40px;
-  width: 20px;
-  height: 20px;
+  bottom: -20px;
+  left: 50px;
+  width: 30px;
+  height: 30px;
   background: white;
   border-radius: 50%;
-  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
 .thought-bubble::after {
   content: '';
   position: absolute;
-  bottom: -25px;
-  left: 25px;
-  width: 12px;
-  height: 12px;
+  bottom: -35px;
+  left: 30px;
+  width: 18px;
+  height: 18px;
   background: white;
   border-radius: 50%;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .bubble-icon {
   position: absolute !important;
-  top: 0.75rem !important;
+  top: 0.5rem !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 70px !important;
-  height: 70px !important;
+  width: 95px !important;
+  height: 95px !important;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e8e8e8;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  border: 4px solid #e8e8e8;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.18);
+}
+
+.quote-mark {
+  position: absolute;
+  font-size: 3rem;
+  font-family: Garamond, serif;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1;
+  font-weight: bold;
+  z-index: 0;
+}
+
+.quote-mark-left {
+  top: 7rem;
+  left: 0.6rem;
+}
+
+.quote-mark-right {
+  top: 7rem;
+  right: 0.6rem;
 }
 
 .quote-text {
   font-size: 1.1rem;
-  font-style: italic;
   color: #2c3e50;
   line-height: 1.4;
   flex-grow: 1;
@@ -196,10 +217,11 @@ const fetchQuote = async () => {
 .quote-author {
   color: #7f8c8d;
   font-weight: bold;
-  font-size: 0.85rem !important;
+  font-style: italic;
+  font-size: 1.15rem !important;
   text-align: right;
   margin: 0;
-  margin-right: 0.75rem;
+  margin-right: 3rem;
   position: absolute;
   bottom: 1rem;
   right: 0;
@@ -232,18 +254,18 @@ const fetchQuote = async () => {
   .title {
     font-size: 2rem;
   }
-  
+
   .logo-icon {
     width: 100px;
   }
-  
+
   .thought-bubble {
     padding: 1.5rem;
     padding-top: 5rem;
     height: 200px;
     max-width: 350px;
   }
-  
+
   .bubble-icon {
     width: 80px !important;
     height: 80px !important;
