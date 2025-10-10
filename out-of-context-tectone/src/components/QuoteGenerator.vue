@@ -185,7 +185,7 @@ const fetchQuote = async () => {
   position: absolute;
   font-size: 3rem;
   font-family: Garamond, serif;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.5);
   line-height: 1;
   font-weight: bold;
   z-index: 0;
@@ -193,16 +193,17 @@ const fetchQuote = async () => {
 
 .quote-mark-left {
   top: 7rem;
-  left: 0.6rem;
+  left: 0.9rem;
 }
 
 .quote-mark-right {
   top: 7rem;
-  right: 0.6rem;
+  right: 0.9rem;
 }
 
 .quote-text {
   font-size: 1.1rem;
+  font-style: italic;
   color: #2c3e50;
   line-height: 1.4;
   flex-grow: 1;
@@ -211,6 +212,7 @@ const fetchQuote = async () => {
   justify-content: center;
   text-align: center;
   margin: 0;
+  margin-top: 2rem;
   padding: 0 0.75rem;
 }
 
