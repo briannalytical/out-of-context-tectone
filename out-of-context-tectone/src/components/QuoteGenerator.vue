@@ -100,15 +100,16 @@ const fetchQuote = async () => {
 .page-container {
   background: linear-gradient(135deg, #000000 0%, #32CD32 100%);
   height: 100vh;
-  height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 4vh 5vw;
+  justify-content: center;
+  padding: 2vh 5vw;
   font-family: Arial, sans-serif;
   overflow: hidden;
   box-sizing: border-box;
+  gap: 2vh;
 }
 
 .header {
@@ -122,6 +123,7 @@ const fetchQuote = async () => {
   object-fit: cover;
   margin-bottom: 1vh;
   border-radius: 50%;
+  border: 4px solid white;
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
@@ -139,9 +141,8 @@ const fetchQuote = async () => {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 90vw;
-  flex-grow: 1;
-  justify-content: center;
+  max-width: min(500px, 90vw);
+  flex-shrink: 0;
   position: relative;
 }
 
@@ -150,18 +151,17 @@ const fetchQuote = async () => {
   border-radius: min(30px, 5vw);
   padding: min(1.5rem, 4vw);
   padding-top: min(5rem, 12vh);
-  margin-bottom: 3vh;
+  padding-bottom: min(1.5rem, 3vh);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: relative;
   text-align: center;
-  min-height: 30vh;
-  max-height: 45vh;
+  min-height: min(200px, 35vh);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: min(350px, 85vw);
   box-sizing: border-box;
+  margin-bottom: 6vh;
 }
 
 .thought-bubble::before {
@@ -232,8 +232,8 @@ const fetchQuote = async () => {
   justify-content: center;
   text-align: center;
   margin: 0;
-  margin-top: min(2rem, 4vh);
-  padding: 0 min(0.75rem, 3vw);
+  margin-top: min(1rem, 2vh);
+  padding: 0 min(2rem, 5vw);
   overflow-y: auto;
   max-height: 100%;
 }
@@ -275,5 +275,4 @@ const fetchQuote = async () => {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 </style>
