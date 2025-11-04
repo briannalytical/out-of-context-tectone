@@ -118,9 +118,10 @@ const fetchQuote = async () => {
 
 .logo-icon {
   width: min(80px, 15vw);
-  height: auto;
+  height: min(80px, 15vw);
+  object-fit: cover;
   margin-bottom: 1vh;
-  border-radius: 6px;
+  border-radius: 50%;
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
