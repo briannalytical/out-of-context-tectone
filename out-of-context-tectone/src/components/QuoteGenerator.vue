@@ -99,31 +99,34 @@ const fetchQuote = async () => {
 <style scoped>
 .page-container {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  justify-content: space-between;
+  padding: 4vh 5vw;
   font-family: Arial, sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 
 .logo-icon {
-  width: 100px;
+  width: min(80px, 15vw);
   height: auto;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1vh;
   border-radius: 6px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 .title {
   color: white;
-  font-size: 2rem;
+  font-size: min(1.5rem, 6vw);
   text-align: center;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -134,35 +137,39 @@ const fetchQuote = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 500px;
   width: 100%;
+  max-width: 90vw;
+  flex-grow: 1;
+  justify-content: center;
   position: relative;
 }
 
 .thought-bubble {
   background: white;
-  border-radius: 30px;
-  padding: 1.5rem;
-  padding-top: 4.5rem;
-  margin-bottom: 1.5rem;
+  border-radius: min(30px, 5vw);
+  padding: min(1.5rem, 4vw);
+  padding-top: min(5rem, 12vh);
+  margin-bottom: 3vh;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: relative;
   text-align: center;
-  height: 160px;
+  min-height: 30vh;
+  max-height: 45vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 350px;
+  max-width: min(350px, 85vw);
+  box-sizing: border-box;
 }
 
 .thought-bubble::before {
   content: '';
   position: absolute;
-  bottom: -20px;
-  left: 50px;
-  width: 30px;
-  height: 30px;
+  bottom: min(-20px, -3vh);
+  left: min(50px, 12vw);
+  width: min(30px, 5vw);
+  height: min(30px, 5vw);
   background: white;
   border-radius: 50%;
   box-shadow: 0 6px 15px rgba(0,0,0,0.12);
@@ -171,10 +178,10 @@ const fetchQuote = async () => {
 .thought-bubble::after {
   content: '';
   position: absolute;
-  bottom: -35px;
-  left: 30px;
-  width: 18px;
-  height: 18px;
+  bottom: min(-35px, -5vh);
+  left: min(30px, 7vw);
+  width: min(18px, 3vw);
+  height: min(18px, 3vw);
   background: white;
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -182,11 +189,11 @@ const fetchQuote = async () => {
 
 .bubble-icon {
   position: absolute !important;
-  top: 0.5rem !important;
+  top: min(0.5rem, 1vh) !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 95px !important;
-  height: 95px !important;
+  width: min(95px, 18vw) !important;
+  height: min(95px, 18vw) !important;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #e8e8e8;
@@ -195,7 +202,7 @@ const fetchQuote = async () => {
 
 .quote-mark {
   position: absolute;
-  font-size: 3rem;
+  font-size: min(3rem, 8vw);
   font-family: Garamond, serif;
   color: rgba(0, 0, 0, 0.5);
   line-height: 1;
@@ -204,17 +211,17 @@ const fetchQuote = async () => {
 }
 
 .quote-mark-left {
-  top: 7rem;
-  left: 0.9rem;
+  top: min(7rem, 14vh);
+  left: min(0.9rem, 3vw);
 }
 
 .quote-mark-right {
-  top: 7rem;
-  right: 0.9rem;
+  top: min(7rem, 14vh);
+  right: min(0.9rem, 3vw);
 }
 
 .quote-text {
-  font-size: 1.1rem;
+  font-size: min(1.1rem, 4.2vw);
   font-style: italic;
   color: #2c3e50;
   line-height: 1.4;
@@ -224,20 +231,22 @@ const fetchQuote = async () => {
   justify-content: center;
   text-align: center;
   margin: 0;
-  margin-top: 2rem;
-  padding: 0 0.75rem;
+  margin-top: min(2rem, 4vh);
+  padding: 0 min(0.75rem, 3vw);
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 .quote-author {
   color: #7f8c8d;
   font-weight: bold;
   font-style: italic;
-  font-size: 1.15rem !important;
+  font-size: min(1.15rem, 4.5vw) !important;
   text-align: right;
   margin: 0;
-  margin-right: 3rem;
+  margin-right: min(3rem, 8vw);
   position: absolute;
-  bottom: 1rem;
+  bottom: min(1rem, 2vh);
   right: 0;
 }
 
@@ -245,13 +254,15 @@ const fetchQuote = async () => {
   background: linear-gradient(45deg, #3498db, #2980b9);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: min(0.75rem, 2vh) min(1.5rem, 6vw);
+  font-size: min(1rem, 4vw);
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
   font-weight: bold;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .btn-generate:hover:not(:disabled) {
@@ -262,27 +273,5 @@ const fetchQuote = async () => {
 .btn-generate:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-@media (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .logo-icon {
-    width: 100px;
-  }
-
-  .thought-bubble {
-    padding: 1.5rem;
-    padding-top: 5rem;
-    height: 200px;
-    max-width: 350px;
-  }
-
-  .bubble-icon {
-    width: 80px !important;
-    height: 80px !important;
-  }
 }
 </style>
