@@ -62,12 +62,12 @@ const fetchQuote = async () => {
 
     if (error) {
       console.error('Error:', error)
-      currentQuote.value = 'Error loading quotes'
+      currentQuote.value = 'error :('
       return
     }
 
     if (!quotes || quotes.length === 0) {
-      currentQuote.value = 'No more quotes available! All quotes have been used.'
+      currentQuote.value = 'Thats it. Go watch Tectone.';
       return
     }
 
@@ -98,7 +98,7 @@ const fetchQuote = async () => {
 
 <style scoped>
 .page-container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #32CD32 100%);
   height: 100vh;
   height: 100dvh; /* Dynamic viewport height for mobile browsers */
   display: flex;
@@ -274,4 +274,5 @@ const fetchQuote = async () => {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 </style>
