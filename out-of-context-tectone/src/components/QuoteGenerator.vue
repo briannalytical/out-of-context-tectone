@@ -62,12 +62,12 @@ const fetchQuote = async () => {
 
     if (error) {
       console.error('Error:', error)
-      currentQuote.value = 'error :('
+      currentQuote.value = "error :("
       return
     }
 
     if (!quotes || quotes.length === 0) {
-      currentQuote.value = 'Thats it. Go watch Tectone.';
+      currentQuote.value = "Thats it. Go watch Tectone.";
       return
     }
 
@@ -141,25 +141,28 @@ const fetchQuote = async () => {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: min(500px, 90vw);
+  max-width: 400px;
   flex-shrink: 0;
   position: relative;
 }
 
 .thought-bubble {
   background: white;
-  border-radius: min(30px, 5vw);
-  padding: min(1.5rem, 4vw);
-  padding-top: min(5rem, 12vh);
-  padding-bottom: min(1.5rem, 3vh);
+  border-radius: 30px;
+  padding: 1.5rem;
+  padding-top: 5.5rem;
+  padding-bottom: 1.5rem;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   position: relative;
   text-align: center;
-  min-height: min(200px, 35vh);
+  min-height: 280px;
+  height: 50vh;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  max-width: 380px;
   box-sizing: border-box;
   margin-bottom: 6vh;
 }
@@ -167,10 +170,10 @@ const fetchQuote = async () => {
 .thought-bubble::before {
   content: '';
   position: absolute;
-  bottom: min(-20px, -3vh);
-  left: min(50px, 12vw);
-  width: min(30px, 5vw);
-  height: min(30px, 5vw);
+  bottom: -20px;
+  left: 50px;
+  width: 30px;
+  height: 30px;
   background: white;
   border-radius: 50%;
   box-shadow: 0 6px 15px rgba(0,0,0,0.12);
@@ -179,10 +182,10 @@ const fetchQuote = async () => {
 .thought-bubble::after {
   content: '';
   position: absolute;
-  bottom: min(-35px, -5vh);
-  left: min(30px, 7vw);
-  width: min(18px, 3vw);
-  height: min(18px, 3vw);
+  bottom: -35px;
+  left: 30px;
+  width: 18px;
+  height: 18px;
   background: white;
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -190,11 +193,11 @@ const fetchQuote = async () => {
 
 .bubble-icon {
   position: absolute !important;
-  top: min(0.5rem, 1vh) !important;
+  top: 0.5rem !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: min(95px, 18vw) !important;
-  height: min(95px, 18vw) !important;
+  width: 95px !important;
+  height: 95px !important;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #e8e8e8;
@@ -203,7 +206,7 @@ const fetchQuote = async () => {
 
 .quote-mark {
   position: absolute;
-  font-size: min(3rem, 8vw);
+  font-size: 3rem;
   font-family: Garamond, serif;
   color: rgba(0, 0, 0, 0.5);
   line-height: 1;
@@ -212,17 +215,17 @@ const fetchQuote = async () => {
 }
 
 .quote-mark-left {
-  top: min(7rem, 14vh);
-  left: min(0.9rem, 3vw);
+  top: 7rem;
+  left: 0.9rem;
 }
 
 .quote-mark-right {
-  top: min(7rem, 14vh);
-  right: min(0.9rem, 3vw);
+  top: 7rem;
+  right: 0.9rem;
 }
 
 .quote-text {
-  font-size: min(1.1rem, 4.2vw);
+  font-size: 1.1rem;
   font-style: italic;
   color: #2c3e50;
   line-height: 1.4;
@@ -232,8 +235,8 @@ const fetchQuote = async () => {
   justify-content: center;
   text-align: center;
   margin: 0;
-  margin-top: min(1rem, 2vh);
-  padding: 0 min(2rem, 5vw);
+  margin-top: 1rem;
+  padding: 0 2rem;
   overflow-y: auto;
   max-height: 100%;
 }
@@ -242,21 +245,21 @@ const fetchQuote = async () => {
   color: #7f8c8d;
   font-weight: bold;
   font-style: italic;
-  font-size: min(1.15rem, 4.5vw) !important;
+  font-size: 1.15rem !important;
   text-align: right;
   margin: 0;
-  margin-right: min(3rem, 8vw);
+  margin-right: 3rem;
   position: absolute;
-  bottom: min(1rem, 2vh);
+  bottom: 1rem;
   right: 0;
 }
 
 .btn-generate {
-  background: linear-gradient(45deg, #3498db, #2980b9);
-  color: white;
-  border: none;
-  padding: min(0.75rem, 2vh) min(1.5rem, 6vw);
-  font-size: min(1rem, 4vw);
+  background: linear-gradient(45deg, black);
+  color: #32CD32;
+  border: 2px solid #3498db;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -274,5 +277,25 @@ const fetchQuote = async () => {
 .btn-generate:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .thought-bubble {
+    max-width: 85vw;
+    min-height: 35vh;
+    height: 45vh;
+    padding: 1.2rem;
+    padding-top: 5rem;
+  }
+
+  .bubble-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .quote-text {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
 }
 </style>
