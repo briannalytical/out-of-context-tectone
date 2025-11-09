@@ -255,8 +255,8 @@ const fetchQuote = async () => {
 }
 
 .btn-generate {
-  background: linear-gradient(45deg, black);
-  color: #32CD32;
+  background: linear-gradient(45deg, black) 100%, #32CD32;
+  color: white;
   border: 2px solid #3498db;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
