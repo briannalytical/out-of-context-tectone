@@ -55,7 +55,7 @@ const fetchQuote = async () => {
     loading.value = true
 
     const { data: quotes, error } = await supabase
-      .from('public.quotes')
+      .from('quotes')
       .select('id, quote_text')
       .eq('is_used', false)
 
