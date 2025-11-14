@@ -54,7 +54,6 @@ const fetchQuote = async () => {
   try {
     loading.value = true
 
-    // unused quotes
     const { data: quotes, error } = await supabase
       .from('quotes')
       .select('id, quote_text')
@@ -74,7 +73,6 @@ const fetchQuote = async () => {
     const randomIndex = Math.floor(Math.random() * quotes.length)
     const selectedQuote = quotes[randomIndex]
 
-    // Mark the quote as used
     const { error: updateError } = await supabase
       .from('quotes')
       .update({ is_used: true })
@@ -255,8 +253,8 @@ const fetchQuote = async () => {
 }
 
 .btn-generate {
-  background: linear-gradient(45deg, black) 100%, #32CD32;
-  color: white;
+  background: linear-gradient(45deg, black);
+  color: #32CD32;
   border: 2px solid #3498db;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
