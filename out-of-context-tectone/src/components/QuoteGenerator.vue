@@ -126,10 +126,11 @@ const fetchQuote = async () => {
 }
 
 .title {
-  color: white;
+  color: #3498db;
   font-size: min(1.5rem, 6vw);
   text-align: center;
   margin: 0;
+  border: 2px white;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   font-weight: bold;
 }
@@ -255,7 +256,7 @@ const fetchQuote = async () => {
 .btn-generate {
   background: linear-gradient(45deg, black);
   color: #32CD32;
-  border: 2px solid #3498db;
+  border: 5px solid #3498db;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border-radius: 40px;
