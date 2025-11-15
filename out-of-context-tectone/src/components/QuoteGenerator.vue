@@ -36,15 +36,15 @@ const adjustFontSize = async () => {
   let fontSize
 
   if (quoteLength < 50) {
-    fontSize = '1.1rem'
+    fontSize = '1.65rem'
   } else if (quoteLength < 100) {
-    fontSize = '1rem'
+    fontSize = '1.45rem'
   } else if (quoteLength < 150) {
-    fontSize = '0.9rem'
+    fontSize = '1.35rem'
   } else if (quoteLength < 200) {
-    fontSize = '0.8rem'
+    fontSize = '1.25rem'
   } else {
-    fontSize = '0.75rem'
+    fontSize = '1rem'
   }
 
   quoteElement.style.fontSize = fontSize
