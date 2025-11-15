@@ -127,7 +127,7 @@ const fetchQuote = async () => {
 
 .title {
   color: #3498db;
-  font-size: min(1.5rem, 6vw);
+  font-size: min(2.1rem, 6vw);
   text-align: center;
   margin: 0;
   border: 2px white;
@@ -192,7 +192,7 @@ const fetchQuote = async () => {
 
 .bubble-icon {
   position: absolute !important;
-  top: 0.5rem !important;
+  top: 1.4rem !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: 95px !important;
@@ -214,13 +214,13 @@ const fetchQuote = async () => {
 }
 
 .quote-mark-left {
-  top: 7rem;
-  left: 0.9rem;
+  top: 9.4rem;
+  left: 1rem;
 }
 
 .quote-mark-right {
-  top: 7rem;
-  right: 0.9rem;
+  top: 9.4rem;
+  right: 1rem;
 }
 
 .quote-text {
